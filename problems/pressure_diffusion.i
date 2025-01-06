@@ -20,9 +20,16 @@
 	[]
 []
 
+# [Kernels]
+# 	[diffusion]
+# 		type			= ADDiffusion
+# 		variable	= pressure
+# 	[]
+# []
+
 [Kernels]
 	[diffusion]
-		type			= ADDiffusion
+		type		= DarcyPressure
 		variable	= pressure
 	[]
 []
