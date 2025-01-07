@@ -19,6 +19,17 @@ DarcyPressure::validParams()
     InputParameters params = ADKernelGrad::validParams();
     params.addClassDescription("Compute the diffusion term for Darcy pressure ($p$) equation: "
                                 "$-\\nabla \\cdot \\frac{\\mathbf{K}}{\\mu} \\nabla p = 0$");
+
+    // add a required parameter. if not provided, MOOSE will show an error.                                
+    params.addRequiredParam<Real>("permeability", "The isotropic permeability ($K$) of the medium.");
+
+    // add an optional parameter. if not provided, MOOSE will set a default value. (?)
+    params.addParam<Real>(
+        "viscosity",
+        7.98e-04,
+        "The dynamic viscosity ($\\mu$) of the fluid, the default value is that of water at 30 "
+        "degrees Celcius (7.98e-04 Pa-s).");
+
     return params;
 }
 
@@ -27,8 +38,13 @@ DarcyPressure::DarcyPressure(const InputParameters & parameters)
 
     // set the coefficients for the pressure kernel
 
-    _permeability(0.8451e-09),
-    _viscosity(7.98e-04)
+    // _permeability(0.8451e-09),
+    // _viscosity(7.98e-04)
+
+    // get the parameters from the input file
+
+    _permeability(getParam<Real>("permeability")),
+    _viscosity(getParam<Real>("viscosity"))
 
 {
 
