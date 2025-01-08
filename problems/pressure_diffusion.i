@@ -60,6 +60,7 @@
 []
 
 [Outputs]
-	exodus	= true
+	exodus			= true
+	perf_graph	= true
 []
 	
