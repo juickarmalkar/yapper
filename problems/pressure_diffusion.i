@@ -20,6 +20,13 @@
 	[]
 []
 
+[AuxVariables]
+	[velocity]
+		order		= CONSTANT
+		family	= MONOMIAL_VEC
+	[]
+[]
+
 # [Kernels]
 # 	[diffusion]
 # 		type			= ADDiffusion
@@ -32,6 +39,15 @@
 		type					= DarcyPressure
 		variable			= pressure
 		#permeability	= 0.8451e-09
+	[]
+[]
+
+[AuxKernels]
+	[velocity]
+		type				= DarcyVelocity
+		variable		= velocity
+		pressure		= pressure
+		execute_on	= TIMESTEP_END
 	[]
 []
 
@@ -63,6 +79,7 @@
 
 	petsc_options_iname		= '-pc_type		-pc_hypre_type'
 	petsc_options_value		= 'hypre			boomeramg'
+	l_tol				= 1e-16
 []
 
 [Outputs]
